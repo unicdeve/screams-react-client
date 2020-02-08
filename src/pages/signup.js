@@ -64,7 +64,7 @@ function SignUp({ classes, history }) {
     axios
       .post('/signup', { email, password, handle, confirmPassword })
       .then(res => {
-        console.log('token', 'Bearer ' + res.data.token);
+        localStorage.setItem('FBIdToken', `Bearer ${res.data.token}`);
         setValues({ ...values, loading: false });
         history.push('/');
       })
@@ -79,7 +79,7 @@ function SignUp({ classes, history }) {
       <Grid item sm>
         <img scr={AppLogo} width={30} alt='monkey' className={classes.image} />
         <Typography variant='h2' className={classes.pageTitle}>
-          Login
+          Sign up
         </Typography>
 
         <form noValidate onSubmit={handleSubmit}>
@@ -125,7 +125,7 @@ function SignUp({ classes, history }) {
           <TextField
             id='confirmPassword'
             name='confirmPassword'
-            type='confirmPassword'
+            type='password'
             label='Confirm Password'
             helperText={errors.confirmPassword}
             error={errors.confirmPassword ? true : false}

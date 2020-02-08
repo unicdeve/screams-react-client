@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import axios from 'axios';
 
 // MUI imports
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -12,6 +12,7 @@ import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 import AppLogo from '../images/logo.png';
+import { loginUser } from '../redux/actions/userActions';
 
 const styles = {
   form: {
@@ -40,15 +41,14 @@ const styles = {
   }
 };
 
-function Login({ classes, history }) {
+function Login({ classes, login, UI: { loading, errors }, history }) {
   const [values, setValues] = useState({
     email: '',
     password: '',
-    loading: false,
     errors: {}
   });
 
-  const { email, password, loading, errors } = values;
+  const { email, password } = values;
 
   const handleChange = e => {
     setValues({ ...values, [e.target.name]: e.target.value });
@@ -57,17 +57,7 @@ function Login({ classes, history }) {
   const handleSubmit = e => {
     e.preventDefault();
 
-    setValues({ ...values, loading: true });
-
-    axios
-      .post('/login', { email, password })
-      .then(res => {
-        setValues({ ...values, loading: false });
-        history.push('/');
-      })
-      .catch(err => {
-        setValues({ ...values, errors: err.response.data, loading: false });
-      });
+    login({ email, password }, history);
   };
 
   return (
@@ -136,7 +126,22 @@ function Login({ classes, history }) {
 }
 
 Login.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
+  user: PropTypes.object.isRequired,
+  UI: PropTypes.object.isRequired,
+  login: PropTypes.func.isRequired
 };
 
-export default withStyles(styles)(Login);
+const mapStateToProps = state => ({
+  user: state.user,
+  UI: state.UI
+});
+
+const mapDispatchToProps = dispatch => ({
+  login: (userData, history) => dispatch(loginUser(userData, history))
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withStyles(styles)(Login));
