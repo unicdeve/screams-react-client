@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import axios from 'axios';
 
 // MUI imports
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -12,6 +12,7 @@ import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 import AppLogo from '../images/logo.png';
+import { signupUser } from '../redux/actions/userActions';
 
 const styles = {
   form: {
@@ -40,17 +41,15 @@ const styles = {
   }
 };
 
-function SignUp({ classes, history }) {
+function SignUp({ classes, history, signUp, UI: { loading, errors } }) {
   const [values, setValues] = useState({
     email: '',
     password: '',
     confirmPassword: '',
-    handle: '',
-    loading: false,
-    errors: {}
+    handle: ''
   });
 
-  const { email, password, handle, confirmPassword, loading, errors } = values;
+  const { email, password, handle, confirmPassword } = values;
 
   const handleChange = e => {
     setValues({ ...values, [e.target.name]: e.target.value });
@@ -59,18 +58,7 @@ function SignUp({ classes, history }) {
   const handleSubmit = e => {
     e.preventDefault();
 
-    setValues({ ...values, loading: true });
-
-    axios
-      .post('/signup', { email, password, handle, confirmPassword })
-      .then(res => {
-        localStorage.setItem('FBIdToken', `Bearer ${res.data.token}`);
-        setValues({ ...values, loading: false });
-        history.push('/');
-      })
-      .catch(err => {
-        setValues({ ...values, errors: err.response.data, loading: false });
-      });
+    signUp(values, history);
   };
 
   return (
@@ -165,7 +153,22 @@ function SignUp({ classes, history }) {
 }
 
 SignUp.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
+  user: PropTypes.object.isRequired,
+  UI: PropTypes.object.isRequired,
+  signUp: PropTypes.func.isRequired
 };
 
-export default withStyles(styles)(SignUp);
+const mapStateToProps = state => ({
+  user: state.user,
+  UI: state.UI
+});
+
+const mapDispatchToProps = dispatch => ({
+  signUp: (userData, history) => dispatch(signupUser(userData, history))
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withStyles(styles)(SignUp));
