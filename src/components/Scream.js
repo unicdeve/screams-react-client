@@ -18,9 +18,11 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 
 import { likeScream, unlikeScream } from '../redux/actions/dataActions';
 import MyButton from '../util/MyButton';
+import DeleteScream from './DeleteScream';
 
 const styles = {
   card: {
+    position: 'relative',
     display: 'flex',
     marginBottom: 20
   },
@@ -76,6 +78,11 @@ function Scream(props) {
     </MyButton>
   );
 
+  const deleteButton = user.authenticated &&
+    userHandle === user.credentials.handle && (
+      <DeleteScream screamId={screamId} />
+    );
+
   return (
     <Card className={classes.card}>
       <CardMedia
@@ -92,6 +99,7 @@ function Scream(props) {
         >
           {userHandle}
         </Typography>
+        {deleteButton}
         <Typography variant='body2' color='textSecondary'>
           {dayjs(createdAt).fromNow()}
         </Typography>
