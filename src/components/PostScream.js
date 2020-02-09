@@ -14,21 +14,23 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import AddIcon from '@material-ui/icons/Add';
 import CloseIcon from '@material-ui/icons/Close';
 
-import { postScream } from '../redux/actions/dataActions';
+import { postScream, clearErrors } from '../redux/actions/dataActions';
 import MyButton from '../util/MyButton';
 
 const styles = theme => ({
   ...theme,
   submitButton: {
-    position: 'relative'
+    position: 'relative',
+    float: 'right',
+    marginTop: 10
   },
   progressSpinner: {
     position: 'absolute'
   },
   closeButton: {
     position: 'absolute',
-    left: '90%',
-    top: '10%'
+    left: '91%',
+    top: '6%'
   }
 });
 
@@ -41,6 +43,11 @@ function PostScream(props) {
     classes,
     UI: { loading, errors: validationErrors }
   } = props;
+
+  const handleClose = () => {
+    props.clearErrors();
+    setOpen(false);
+  };
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -68,15 +75,10 @@ function PostScream(props) {
         <AddIcon />
       </MyButton>
 
-      <Dialog
-        open={open}
-        onClose={() => setOpen(false)}
-        fullWidth
-        maxWidth='sm'
-      >
+      <Dialog open={open} onClose={handleClose} fullWidth maxWidth='sm'>
         <MyButton
           tip='Close'
-          onClick={() => setOpen(false)}
+          onClick={handleClose}
           tipClassName={classes.closeButton}
         >
           <CloseIcon />
@@ -125,6 +127,7 @@ function PostScream(props) {
 
 PostScream.propTypes = {
   postScream: PropTypes.func.isRequired,
+  clearErrors: PropTypes.func.isRequired,
   UI: PropTypes.object.isRequired
 };
 
@@ -132,6 +135,6 @@ const mapStateToProps = state => ({
   UI: state.UI
 });
 
-export default connect(mapStateToProps, { postScream })(
+export default connect(mapStateToProps, { postScream, clearErrors })(
   withStyles(styles)(PostScream)
 );
