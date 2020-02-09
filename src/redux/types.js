@@ -11,6 +11,7 @@ export const LOADING_UI = 'LOADING_UI';
 export const LOADING_DATA = 'LOADING_DATA';
 
 // Data reducers
+export const POST_SCREAM = 'POST_SCREAM';
 export const SET_SCREAMS = 'SET_SCREAMS';
 export const SET_SCREAM = 'SET_SCREAM';
 export const LIKE_SCREAM = 'LIKE_SCREAM';
