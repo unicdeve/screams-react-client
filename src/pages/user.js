@@ -8,6 +8,8 @@ import { getUserData } from '../redux/actions/dataActions';
 import Scream from '../components/scream/Scream';
 import axios from 'axios';
 import StaticProfile from '../components/profile/StaticProfile';
+import ScreamSkeleton from '../util/ScreamSkeleton';
+import ProfileSkeleton from '../util/ProfileSkeleton';
 
 function User(props) {
   const { getUserData: getUser } = props;
@@ -34,7 +36,7 @@ function User(props) {
   const { screams, loading } = props.data;
 
   const screamsMarkup = loading ? (
-    <p>loading data...</p>
+    <ScreamSkeleton />
   ) : screams === null ? (
     <p>No screams from this user</p>
   ) : !screamIdParam ? (
@@ -54,7 +56,7 @@ function User(props) {
       </Grid>
       <Grid item sm={4} xs={12}>
         {profile === null ? (
-          <p>Loading profile...</p>
+          <ProfileSkeleton />
         ) : (
           <StaticProfile profile={profile} />
         )}

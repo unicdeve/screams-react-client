@@ -20,6 +20,7 @@ import KeyboardReturn from '@material-ui/icons/KeyboardReturn';
 
 import { uploadImage, logoutUser } from '../../redux/actions/userActions';
 import MyButton from '../../util/MyButton';
+import ProfileSkeleton from '../../util/ProfileSkeleton';
 
 const styles = theme => ({
   ...theme
@@ -135,7 +136,7 @@ function Profile(props) {
       </Paper>
     )
   ) : (
-    <p>loading</p>
+    <ProfileSkeleton />
   );
 
   return profileMarkup;
