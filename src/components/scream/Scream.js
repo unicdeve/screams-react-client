@@ -14,7 +14,7 @@ import Typography from '@material-ui/core/Typography';
 
 import ChatIcon from '@material-ui/icons/Chat';
 
-import MyButton from '../util/MyButton';
+import MyButton from '../../util/MyButton';
 import DeleteScream from './DeleteScream';
 import ScreamDialog from './ScreamDialog';
 import LikeButton from './LikeButton';

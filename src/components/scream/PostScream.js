@@ -14,8 +14,8 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import AddIcon from '@material-ui/icons/Add';
 import CloseIcon from '@material-ui/icons/Close';
 
-import { postScream, clearErrors } from '../redux/actions/dataActions';
-import MyButton from '../util/MyButton';
+import { postScream, clearErrors } from '../../redux/actions/dataActions';
+import MyButton from '../../util/MyButton';
 
 const styles = theme => ({
   ...theme,

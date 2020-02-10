@@ -10,7 +10,7 @@ import { Provider } from 'react-redux';
 import HomePage from './pages/home';
 import Login from './pages/login';
 import SignUp from './pages/signup';
-import Navbar from './components/Navbar';
+import Navbar from './components/layout/Navbar';
 
 import themeFile from './util/theme';
 import AuthRoute from './util/AuthRoute';

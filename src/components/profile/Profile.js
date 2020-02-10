@@ -18,8 +18,8 @@ import LinkIcon from '@material-ui/icons/Link';
 import EditIcon from '@material-ui/icons/Edit';
 import KeyboardReturn from '@material-ui/icons/KeyboardReturn';
 
-import { uploadImage, logoutUser } from '../redux/actions/userActions';
-import MyButton from '../util/MyButton';
+import { uploadImage, logoutUser } from '../../redux/actions/userActions';
+import MyButton from '../../util/MyButton';
 
 const styles = theme => ({
   ...theme

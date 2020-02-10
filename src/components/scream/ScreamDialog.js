@@ -16,8 +16,8 @@ import CloseIcon from '@material-ui/icons/Close';
 import ChatIcon from '@material-ui/icons/Chat';
 
 import dayjs from 'dayjs';
-import { getScream } from '../redux/actions/dataActions';
-import MyButton from '../util/MyButton';
+import { getScream } from '../../redux/actions/dataActions';
+import MyButton from '../../util/MyButton';
 import LikeButton from './LikeButton';
 
 const styles = theme => ({

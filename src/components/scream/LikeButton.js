@@ -6,8 +6,8 @@ import { Link } from 'react-router-dom';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 
-import MyButton from '../util/MyButton';
-import { likeScream, unlikeScream } from '../redux/actions/dataActions';
+import MyButton from '../../util/MyButton';
+import { likeScream, unlikeScream } from '../../redux/actions/dataActions';
 
 function LikeButton(props) {
   const { user, screamId } = props;
