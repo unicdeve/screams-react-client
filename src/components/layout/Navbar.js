@@ -9,10 +9,10 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Button from '@material-ui/core/Button';
 
 import HomeIcon from '@material-ui/icons/Home';
-import NotificationsIcon from '@material-ui/icons/Notifications';
 
 import MyButton from '../../util/MyButton';
 import PostScream from '../scream/PostScream';
+import Notifications from './Notifications';
 
 function Navbar({ authenticated }) {
   return (
@@ -28,9 +28,7 @@ function Navbar({ authenticated }) {
               </MyButton>
             </Link>
 
-            <MyButton tip='Notifications'>
-              <NotificationsIcon />
-            </MyButton>
+            <Notifications />
           </>
         ) : (
           <>
