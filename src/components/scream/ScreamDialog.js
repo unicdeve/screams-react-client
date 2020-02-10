@@ -16,10 +16,11 @@ import CloseIcon from '@material-ui/icons/Close';
 import ChatIcon from '@material-ui/icons/Chat';
 
 import dayjs from 'dayjs';
-import { getScream } from '../../redux/actions/dataActions';
+import { getScream, clearErrors } from '../../redux/actions/dataActions';
 import MyButton from '../../util/MyButton';
 import LikeButton from './LikeButton';
 import Comments from './Comments';
+import CommentForm from './CommentForm';
 
 const styles = theme => ({
   ...theme,
@@ -72,6 +73,7 @@ function ScreamDialog(props) {
 
   const handleClose = () => {
     setOpen(false);
+    props.clearErrors();
   };
 
   const dialogMarkup = loading ? (
@@ -111,6 +113,7 @@ function ScreamDialog(props) {
         <span>{commentCount} Comments</span>
       </Grid>
       <hr className={classes.visibleSeperator} />
+      <CommentForm screamId={screamId} />
       <Comments comments={comments} />
     </Grid>
   );
@@ -143,6 +146,7 @@ function ScreamDialog(props) {
 
 ScreamDialog.propTypes = {
   getScream: PropTypes.func.isRequired,
+  clearErrors: PropTypes.func.isRequired,
   screamId: PropTypes.string.isRequired,
   userHandle: PropTypes.string.isRequired,
   scream: PropTypes.object.isRequired,
@@ -155,7 +159,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-  getScream
+  getScream,
+  clearErrors
 };
 
 export default connect(

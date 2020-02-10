@@ -11,7 +11,8 @@ import {
   LOADING_UI,
   POST_SCREAM,
   SET_SCREAM,
-  STOP_LOADING_UI
+  STOP_LOADING_UI,
+  SUBMIT_COMMENT
 } from '../types';
 
 // get all screams
@@ -98,6 +99,25 @@ export const deleteScream = screamId => dispatch => {
       dispatch({ type: DELETE_SCREAM, payload: screamId });
     })
     .catch(err => console.log(err));
+};
+
+// Post a comment
+export const submitComment = (screamId, body) => dispatch => {
+  axios
+    .post(`/scream/${screamId}/comment`, body)
+    .then(res => {
+      dispatch({
+        type: SUBMIT_COMMENT,
+        payload: res.data
+      });
+      dispatch(clearErrors());
+    })
+    .catch(err => {
+      dispatch({
+        type: SET_ERRORS,
+        payload: err.response.data
+      });
+    });
 };
 
 export const clearErrors = () => dispatch => dispatch({ type: CLEAR_ERRORS });
