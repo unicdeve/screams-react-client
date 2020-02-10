@@ -12,10 +12,14 @@ import StaticProfile from '../components/profile/StaticProfile';
 function User(props) {
   const { getUserData: getUser } = props;
   const [profile, setProfile] = useState(null);
+  const [screamIdParam, setScreamIdParam] = useState(null);
 
   const handle = props.match.params.handle;
+  const screamId = props.match.params.screamId;
 
   useEffect(() => {
+    if (screamId) setScreamIdParam(screamId);
+
     getUser(handle);
     axios
       .get(`/user/${handle}`)
@@ -25,7 +29,7 @@ function User(props) {
       .catch(err => {
         console.log(err);
       });
-  }, [handle, getUser]);
+  }, [handle, getUser, screamId]);
 
   const { screams, loading } = props.data;
 
@@ -33,8 +37,14 @@ function User(props) {
     <p>loading data...</p>
   ) : screams === null ? (
     <p>No screams from this user</p>
-  ) : (
+  ) : !screamIdParam ? (
     screams.map(scream => <Scream key={scream.screamId} scream={scream} />)
+  ) : (
+    screams.map(scream => {
+      if (scream.screamId !== screamIdParam)
+        return <Scream key={scream.screamId} scream={scream} />;
+      else return <Scream key={scream.screamId} scream={scream} openDialog />;
+    })
   );
 
   return (

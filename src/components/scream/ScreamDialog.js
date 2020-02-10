@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -61,20 +61,37 @@ function ScreamDialog(props) {
       userHandle,
       comments
     },
-    UI: { loading }
+    UI: { loading },
+    openDialog,
+    getScream: getSingleScream
   } = props;
 
   const [open, setOpen] = useState(false);
+  const [oldPath, setOldPath] = useState('');
 
-  const handleOpen = () => {
+  const handleOpen = useCallback(() => {
+    let oldPath = window.location.pathname;
+
+    const newPath = `/users/${props.userHandle}/scream/${screamId}`;
+
+    if (oldPath === newPath) oldPath = `/users/${props.userHandle}`;
+
+    window.history.pushState(null, null, newPath);
+
+    setOldPath(oldPath);
     setOpen(true);
-    props.getScream(screamId);
-  };
+    getSingleScream(screamId);
+  }, [setOpen, getSingleScream, screamId, props.userHandle]);
 
   const handleClose = () => {
+    window.history.pushState(null, null, oldPath);
     setOpen(false);
     props.clearErrors();
   };
+
+  useEffect(() => {
+    if (openDialog) handleOpen();
+  }, [openDialog, handleOpen]);
 
   const dialogMarkup = loading ? (
     <div className={classes.spinnerDiv}>
