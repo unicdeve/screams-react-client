@@ -93,5 +93,14 @@ export default {
     '& a': {
       margin: '20px 10px'
     }
+  },
+  visibleSeperator: {
+    borderBottom: '1px solid rgba(0,0,0,0.1)',
+    marginBottom: 20,
+    width: '100%'
+  },
+  invisibleSeperator: {
+    border: 'none',
+    margin: 4
   }
 };

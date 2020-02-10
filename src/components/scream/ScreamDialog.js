@@ -19,13 +19,10 @@ import dayjs from 'dayjs';
 import { getScream } from '../../redux/actions/dataActions';
 import MyButton from '../../util/MyButton';
 import LikeButton from './LikeButton';
+import Comments from './Comments';
 
 const styles = theme => ({
   ...theme,
-  invisibleSeperator: {
-    border: 'none',
-    margin: 4
-  },
   profileImage: {
     maxWidth: 200,
     height: 200,
@@ -54,7 +51,15 @@ function ScreamDialog(props) {
   const {
     classes,
     screamId,
-    scream: { body, createdAt, likeCount, commentCount, userImage, userHandle },
+    scream: {
+      body,
+      createdAt,
+      likeCount,
+      commentCount,
+      userImage,
+      userHandle,
+      comments
+    },
     UI: { loading }
   } = props;
 
@@ -105,6 +110,8 @@ function ScreamDialog(props) {
         </MyButton>
         <span>{commentCount} Comments</span>
       </Grid>
+      <hr className={classes.visibleSeperator} />
+      <Comments comments={comments} />
     </Grid>
   );
 
