@@ -13,10 +13,12 @@ import Typography from '@material-ui/core/Typography';
 
 import UnfoldMoreIcon from '@material-ui/icons/UnfoldMore';
 import CloseIcon from '@material-ui/icons/Close';
+import ChatIcon from '@material-ui/icons/Chat';
 
 import dayjs from 'dayjs';
 import { getScream } from '../redux/actions/dataActions';
 import MyButton from '../util/MyButton';
+import LikeButton from './LikeButton';
 
 const styles = theme => ({
   ...theme,
@@ -95,6 +97,13 @@ function ScreamDialog(props) {
         <hr className={classes.invisibleSeperator} />
 
         <Typography variant='body1'>{body}</Typography>
+        <LikeButton screamId={screamId} />
+        <span>{likeCount} Likes</span>
+
+        <MyButton tip='Comments'>
+          <ChatIcon color='primary' />
+        </MyButton>
+        <span>{commentCount} Comments</span>
       </Grid>
     </Grid>
   );
